@@ -1,117 +1,97 @@
-import NProgress from 'nprogress'
+import NProgress from 'nprogress';
+import React, { useEffect, useRef } from 'react';
 
-import { useEffect, useRef } from 'react'
-
- 
+export interface Next13NProgress {
+  /**
+   * The color of the bar.
+   * @default "#f50"
+   */
+  color?: string;
+  /**
+   * The start position of the bar.
+   * @default 0.3
+   */
+  startPosition?: number;
+  /**
+   * The stop delay in milliseconds.
+   * @default 200
+   */
+  stopDelayMs?: number;
+  /**
+   * The height of the bar.
+   * @default 3
+   */
+  height?: number;
+  /**
+   * The other NProgress configuration options to pass to NProgress.
+   * @default null
+   */
+  options?: Partial<NProgress.NProgressOptions>;
+}
 
 const Next13NProgress = ({
-
-  color = '#29D',
-
+  color = '#f50',
   startPosition = 0.3,
-
   stopDelayMs = 200,
-
   height = 3,
-
   options,
-
-}) => {
-
-  let timer = useRef()
-
- 
+}: Next13NProgress) => {
+  const timer = useRef<NodeJS.Timeout | null>();
 
   useEffect(() => {
-
     if (options) {
-
-      NProgress.configure(options)
-
+      NProgress.configure(options);
     }
-
- 
 
     const routeChangeStart = () => {
+      NProgress.set(startPosition);
 
-      NProgress.set(startPosition)
-
-      NProgress.start()
-
-    }
-
- 
+      NProgress.start();
+    };
 
     const routeChangeEnd = () => {
-
-      if (timer.current) clearTimeout(timer.current)
+      if (timer.current) clearTimeout(timer.current);
 
       timer.current = setTimeout(() => {
-
-        NProgress.done(true)
-
-      }, stopDelayMs)
-
-    }
-
- 
+        NProgress.done(true);
+      }, stopDelayMs);
+    };
 
     const routeChangeError = () => {
-
-      if (timer.current) clearTimeout(timer.current)
+      if (timer.current) clearTimeout(timer.current);
 
       timer.current = setTimeout(() => {
+        NProgress.done(true);
+      }, stopDelayMs);
+    };
 
-        NProgress.done(true)
-
-      }, stopDelayMs)
-
-    }
-
- 
-
-    const { navigation } = window
-
- 
+    const { navigation } = window;
 
     if (navigation) {
+      navigation.addEventListener('navigate', routeChangeStart);
 
-      navigation.addEventListener('navigate', routeChangeStart)
+      navigation.addEventListener('navigateerror', routeChangeError);
 
-      navigation.addEventListener('navigateerror', routeChangeError)
-
-      navigation.addEventListener('navigatesuccess', routeChangeEnd)
+      navigation.addEventListener('navigatesuccess', routeChangeEnd);
 
       return () => {
+        navigation.removeEventListener('navigate', routeChangeStart);
 
-        navigation.removeEventListener('navigate', routeChangeStart)
+        navigation.removeEventListener('navigateerror', routeChangeError);
 
-        navigation.removeEventListener('navigateerror', routeChangeError)
-
-        navigation.removeEventListener('navigatesuccess', routeChangeEnd)
-
-      }
-
+        navigation.removeEventListener('navigatesuccess', routeChangeEnd);
+      };
     }
-
-  }, [])
-
- 
+  }, []);
 
   return (
-
     <>
-
       <style jsx global>{`
-
         #nprogress {
-
           pointer-events: none;
-
         }
 
         #nprogress .bar {
-
           background: ${color};
 
           position: fixed;
@@ -125,11 +105,9 @@ const Next13NProgress = ({
           width: 100%;
 
           height: ${height}px;
-
         }
 
         #nprogress .peg {
-
           display: block;
 
           position: absolute;
@@ -149,11 +127,9 @@ const Next13NProgress = ({
           -ms-transform: rotate(3deg) translate(0px, -4px);
 
           transform: rotate(3deg) translate(0px, -4px);
-
         }
 
         #nprogress .spinner {
-
           display: 'block';
 
           position: fixed;
@@ -163,11 +139,9 @@ const Next13NProgress = ({
           top: 15px;
 
           right: 15px;
-
         }
 
         #nprogress .spinner-icon {
-
           width: 18px;
 
           height: 18px;
@@ -185,65 +159,41 @@ const Next13NProgress = ({
           -webkit-animation: nprogresss-spinner 400ms linear infinite;
 
           animation: nprogress-spinner 400ms linear infinite;
-
         }
 
         .nprogress-custom-parent {
-
           overflow: hidden;
 
           position: relative;
-
         }
 
         .nprogress-custom-parent #nprogress .spinner,
-
         .nprogress-custom-parent #nprogress .bar {
-
           position: absolute;
-
         }
 
         @-webkit-keyframes nprogress-spinner {
-
           0% {
-
             -webkit-transform: rotate(0deg);
-
           }
 
           100% {
-
             -webkit-transform: rotate(360deg);
-
           }
-
         }
 
         @keyframes nprogress-spinner {
-
           0% {
-
             transform: rotate(0deg);
-
           }
 
           100% {
-
             transform: rotate(360deg);
-
           }
-
         }
-
       `}</style>
-
     </>
+  );
+};
 
-  )
-
-}
-
- 
-
-export default Next13NProgress
+export default Next13NProgress;

@@ -1,0 +1,14 @@
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# next.js build output
+.next
+
+node_modules
+.idea
+.DS_Store
+dist
