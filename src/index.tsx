@@ -52,6 +52,8 @@ const Next13NProgress = ({
     }
 
     const routeChangeStart = () => {
+      if (timer.current) clearTimeout(timer.current);
+
       NProgress.set(startPosition);
 
       NProgress.start();
