@@ -1,11 +1,15 @@
 import * as NProgress from 'nprogress';
 import * as React from 'react';
 
+import _JSXStyle from 'styled-jsx/style';
+
 declare global {
   interface Window {
     navigation: any;
   }
 }
+
+const nonce = (Math.random() + 1).toString(36).substring(7);
 
 export interface Next13NProgress {
   /**
@@ -90,7 +94,8 @@ const Next13NProgress = ({
     }
   }, []);
 
-  const getStyle = () => (<style>{`
+
+  return <_JSXStyle id={nonce}>{`
   #nprogress {
     pointer-events: none;
   }
@@ -195,9 +200,7 @@ const Next13NProgress = ({
       transform: rotate(360deg);
     }
   }
-`}</style>);
-
-  return getStyle;
+`}</_JSXStyle>;
 };
 
 export default Next13NProgress;
