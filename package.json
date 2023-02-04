@@ -1,0 +1,61 @@
+{
+  "name": "next13-nprogress",
+  "version": "0.0.1",
+  "description": "Nprogress component for Next.js 13.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "prepack": "npm run build",
+    "lint": "eslint --fix --cache src/",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "types": "tsc --declaration --emitDeclarationOnly",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HolaSoyGonZzA/next13-nprogress.git"
+  },
+  "keywords": [
+    "Nprogress",
+    "Next",
+    "Next.js",
+    "Next.js 13",
+    "Progressbar"
+  ],
+  "author": "Roberth González",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HolaSoyGonZzA/next13-nprogress/issues"
+  },
+  "homepage": "https://github.com/HolaSoyGonZzA/next13-nprogress#readme",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "next": ">= 6.0.0",
+    "react": ">= 16.0.0"
+  },
+  "dependencies": {
+    "nprogress": "^0.2.0",
+    "styled-jsx": "^5.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "^18.0.21",
+    "@types/styled-jsx": "^3.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "next": "^12.3.1",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4"
+  }
+}
