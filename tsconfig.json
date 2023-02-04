@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "jsx": "preserve",
+        "jsx": "react",
         "target": "esnext",
         "module": "commonjs",
         "strict": true,
@@ -14,6 +14,7 @@
         "noFallthroughCasesInSwitch": true,
         "moduleResolution": "node",
         "lib": [
+            "DOM",
             "es2021"
         ],
         "skipLibCheck": true,

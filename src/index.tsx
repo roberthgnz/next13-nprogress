@@ -1,5 +1,11 @@
-import NProgress from 'nprogress';
-import React, { useEffect, useRef } from 'react';
+import * as NProgress from 'nprogress';
+import * as React from 'react';
+
+declare global {
+  interface Window {
+    navigation: any;
+  }
+}
 
 export interface Next13NProgress {
   /**
@@ -36,9 +42,9 @@ const Next13NProgress = ({
   height = 3,
   options,
 }: Next13NProgress) => {
-  const timer = useRef<NodeJS.Timeout | null>();
+  const timer = React.useRef<NodeJS.Timeout | null>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (options) {
       NProgress.configure(options);
     }
@@ -84,116 +90,114 @@ const Next13NProgress = ({
     }
   }, []);
 
-  return (
-    <>
-      <style jsx global>{`
-        #nprogress {
-          pointer-events: none;
-        }
+  const getStyle = () => (<style>{`
+  #nprogress {
+    pointer-events: none;
+  }
 
-        #nprogress .bar {
-          background: ${color};
+  #nprogress .bar {
+    background: ${color};
 
-          position: fixed;
+    position: fixed;
 
-          z-index: 1031;
+    z-index: 1031;
 
-          top: 0;
+    top: 0;
 
-          left: 0;
+    left: 0;
 
-          width: 100%;
+    width: 100%;
 
-          height: ${height}px;
-        }
+    height: ${height}px;
+  }
 
-        #nprogress .peg {
-          display: block;
+  #nprogress .peg {
+    display: block;
 
-          position: absolute;
+    position: absolute;
 
-          right: 0px;
+    right: 0px;
 
-          width: 100px;
+    width: 100px;
 
-          height: 100%;
+    height: 100%;
 
-          box-shadow: 0 0 10px ${color}, 0 0 5px ${color};
+    box-shadow: 0 0 10px ${color}, 0 0 5px ${color};
 
-          opacity: 1;
+    opacity: 1;
 
-          -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
 
-          -ms-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
 
-          transform: rotate(3deg) translate(0px, -4px);
-        }
+    transform: rotate(3deg) translate(0px, -4px);
+  }
 
-        #nprogress .spinner {
-          display: 'block';
+  #nprogress .spinner {
+    display: 'block';
 
-          position: fixed;
+    position: fixed;
 
-          z-index: 1031;
+    z-index: 1031;
 
-          top: 15px;
+    top: 15px;
 
-          right: 15px;
-        }
+    right: 15px;
+  }
 
-        #nprogress .spinner-icon {
-          width: 18px;
+  #nprogress .spinner-icon {
+    width: 18px;
 
-          height: 18px;
+    height: 18px;
 
-          box-sizing: border-box;
+    box-sizing: border-box;
 
-          border: solid 2px transparent;
+    border: solid 2px transparent;
 
-          border-top-color: ${color};
+    border-top-color: ${color};
 
-          border-left-color: ${color};
+    border-left-color: ${color};
 
-          border-radius: 50%;
+    border-radius: 50%;
 
-          -webkit-animation: nprogresss-spinner 400ms linear infinite;
+    -webkit-animation: nprogresss-spinner 400ms linear infinite;
 
-          animation: nprogress-spinner 400ms linear infinite;
-        }
+    animation: nprogress-spinner 400ms linear infinite;
+  }
 
-        .nprogress-custom-parent {
-          overflow: hidden;
+  .nprogress-custom-parent {
+    overflow: hidden;
 
-          position: relative;
-        }
+    position: relative;
+  }
 
-        .nprogress-custom-parent #nprogress .spinner,
-        .nprogress-custom-parent #nprogress .bar {
-          position: absolute;
-        }
+  .nprogress-custom-parent #nprogress .spinner,
+  .nprogress-custom-parent #nprogress .bar {
+    position: absolute;
+  }
 
-        @-webkit-keyframes nprogress-spinner {
-          0% {
-            -webkit-transform: rotate(0deg);
-          }
+  @-webkit-keyframes nprogress-spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
 
-          100% {
-            -webkit-transform: rotate(360deg);
-          }
-        }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
 
-        @keyframes nprogress-spinner {
-          0% {
-            transform: rotate(0deg);
-          }
+  @keyframes nprogress-spinner {
+    0% {
+      transform: rotate(0deg);
+    }
 
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-    </>
-  );
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`}</style>);
+
+  return getStyle;
 };
 
 export default Next13NProgress;
