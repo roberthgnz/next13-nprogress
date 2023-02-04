@@ -92,8 +92,8 @@ const Next13NProgress = ({
     }
   }, []);
 
-
-  return <_JSXStyle>{`
+  return (
+    <_JSXStyle>{`
   #nprogress {
     pointer-events: none;
   }
@@ -198,7 +198,8 @@ const Next13NProgress = ({
       transform: rotate(360deg);
     }
   }
-`}</_JSXStyle>;
+`}</_JSXStyle>
+  );
 };
 
 export default Next13NProgress;
