@@ -9,6 +9,8 @@ declare global {
   }
 }
 
+const nonce = Math.random().toString(36).slice(2);
+
 export interface Next13NProgress {
   /**
    * The color of the bar.
@@ -95,7 +97,7 @@ const Next13NProgress = ({
   }, []);
 
   return (
-    <_JSXStyle>{`
+    <_JSXStyle id={nonce}>{`
   #nprogress {
     pointer-events: none;
   }
