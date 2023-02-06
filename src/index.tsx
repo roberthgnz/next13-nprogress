@@ -94,6 +94,8 @@ const Next13NProgress = ({
         navigation.removeEventListener('navigatesuccess', routeChangeEnd);
       };
     }
+
+    return () => null;
   }, []);
 
   return (
